@@ -41,7 +41,7 @@ class FileStorage:
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dict = json.load(f)
-            loaded_objects = FileStorage.__objects
+            loaded_objects = {}
             for k, v in obj_dict.items():
                 if 'User' in v.keys():
                     loaded_objects[k] = User(**v)
