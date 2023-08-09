@@ -1,57 +1,46 @@
 #!/usr/bin/python3
 import unittest
-from datetime import datetime
-from models.base_model import BaseModel
-from models import storage
-from models.engine.file_storage import FileStorage
-import re
-import json
-import uuid
 import os
-import time
-"""class for test filestoarage"""
+import json
+from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+"""class for filestorage"""
 
 
 class TestFileStorage(unittest.TestCase):
+    """tests"""
 
     def setUp(self):
+        """setup"""
         self.storage = FileStorage()
-        self.obj1 = BaseModel()
-        self.obj2 = BaseModel()
-        self.storage.new(self.obj1)
-        self.storage.new(self.obj2)
-        self.storage.save()
 
     def tearDown(self):
+        """teardown"""
         try:
-            os.remove(FileStorage.__file_path)
+            os.remove(FileStorage._FileStorage__file_path)
         except FileNotFoundError:
             pass
 
-    def test_all(self):
-        """test for all method"""
+    def test_new_and_all(self):
+        """new and all methods"""
+        model = BaseModel()
+        self.storage.new(model)
         all_objects = self.storage.all()
-        self.assertIsInstance(all_objects, dict)
-        self.assertEqual(len(all_objects), 2)
-
-    def test_new(self):
-        """test for the new method"""
-        obj3 = BaseModel()
-        self.storage.new(obj3)
-        all_objects = self.storage.all()
-        self.assertEqual(len(all_objects), 3)
+        self.assertIn(model, all_objects.values())
 
     def test_save_and_reload(self):
-        """Save data to file
-        then clear objects
-        reload from file, and compare"""
+        """save and reload methods"""
+        model = BaseModel()
+        self.storage.new(model)
         self.storage.save()
-        FileStorage.__objects = {}
+        self.storage = FileStorage()  # Recreate storage to simulate a new instance
         self.storage.reload()
-        all_objects = self.storage.all()
-        self.assertEqual(len(all_objects), 2)
-        self.assertIsInstance(all_objects.get("BaseModel.{}".format(self.obj1.id)), BaseModel)
-        self.assertIsInstance(all_objects.get("BaseModel.{}".format(self.obj2.id)), BaseModel)
+        loaded = self.storage.all()["BaseModel,"] + model.id
+        self.assertEqual(model.id, loaded_model.id)
+        self.assertEqual(model.created_at, loaded_model.created_at)
+        self.assertEqual(model.updated_at, loaded_model.updated_at)
+
+       
 
 if __name__ == '__main__':
     unittest.main()

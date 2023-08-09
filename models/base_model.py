@@ -40,7 +40,7 @@ class BaseModel:
         representation of the instance, including the class name of the object
         created_at and updated_at are returned in isoformat(readable format)
         """
-        dict_obj = self.__dict__
+        dict_obj = self.__dict__.copy()
         dict_obj["created_at"] = dict_obj["created_at"].isoformat()
         dict_obj["updated_at"] = dict_obj["updated_at"].isoformat()
         dict_obj["__class__"] = __class__.__name__
