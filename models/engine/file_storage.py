@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-import os
+"""this module contains a class filestorage"""
 import json
-"""class filestorage"""
+import os
 
 
 class FileStorage:
-
     """Private class attributes"""
     __file_path = "file.json"
     __objects = {}
@@ -16,15 +15,17 @@ class FileStorage:
 
     def new(self, obj):
         """sets in __objects the obj with key"""
-        key = "{},{}".format(type(obj).__name__, obj.id)
+        key = "{}.{}".format(type(obj).__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """serializes __objects to the JSON file (path: __file_path)"""
-        data = {}
-        for key, value in FileStorage.__objects.items():
-            data[key] = value.to_dict()
+        """serializes BaseModel object(__objects)
+            to the JSON file (path: __file_path)
+        """
         with open(FileStorage.__file_path, "w", encoding='utf-8') as fl:
+            data = {}
+            for key, value in FileStorage.__objects.items():
+                data[key] = value.to_dict()
             json.dump(data, fl)
 
     def reload(self):
@@ -42,17 +43,17 @@ class FileStorage:
             obj_dict = json.load(f)
             loaded_objects = FileStorage.__objects
             for k, v in obj_dict.items():
-                if type(BaseModel) in v.keys():
+                if 'User' in v.keys():
                     loaded_objects[k] = User(**v)
-                elif type(BaseModel) in v.keys():
+                elif 'Amenity' in v.keys():
                     loaded_objects[k] = Amenity(**v)
-                elif type(BaseModel) in v.keys():
+                elif 'City' in v.keys():
                     loaded_objects[k] = City(**v)
-                elif type(BaseModel) in v.keys():
+                elif 'Place' in v.keys():
                     loaded_objects[k] = Place(**v)
-                elif type(BaseModel) in v.keys():
+                elif 'Review' in v.keys():
                     loaded_objects[k] = Review(**v)
-                elif type(BaseModel) in v.keys():
+                elif 'State' in v.keys():
                     loaded_objects[k] = State(**v)
                 else:
                     loaded_objects[k] = BaseModel(**v)
