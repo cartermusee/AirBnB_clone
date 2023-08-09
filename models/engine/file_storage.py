@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import os
 import json
 """class filestorage"""
@@ -22,17 +21,39 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
+        data = {}
+        for key, value in FileStorage.__objects.items():
+            data[key] = value.to_dict()
         with open(FileStorage.__file_path, "w", encoding='utf-8') as fl:
-            data = {}
-            for key, value in FileStorage.__objects.items():
-                data[key] = value.to_dict()
-
-            json.dumps(data, fl)
+            json.dump(data, fl)
 
     def reload(self):
         """deserializes the JSON file to __objects"""
-        if not os.path.isfile(self.__file_path):
+        from models.user import User
+        from models.base_model import BaseModel
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        if not os.path.isfile(FileStorage.__file_path):
             return
-        with open(self.__file_path, "r", encoding="utf-8") as f:
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dict = json.load(f)
-            FileStorage.__objects = obj_dict
+            loaded_objects = FileStorage.__objects
+            for k, v in obj_dict.items():
+                if type(BaseModel) in v.keys():
+                    loaded_objects[k] = User(**v)
+                elif type(BaseModel) in v.keys():
+                    loaded_objects[k] = Amenity(**v)
+                elif type(BaseModel) in v.keys():
+                    loaded_objects[k] = City(**v)
+                elif type(BaseModel) in v.keys():
+                    loaded_objects[k] = Place(**v)
+                elif type(BaseModel) in v.keys():
+                    loaded_objects[k] = Review(**v)
+                elif type(BaseModel) in v.keys():
+                    loaded_objects[k] = State(**v)
+                else:
+                    loaded_objects[k] = BaseModel(**v)
+            FileStorage.__objects = loaded_objects
