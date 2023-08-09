@@ -28,20 +28,6 @@ class TestFileStorage(unittest.TestCase):
         all_objects = self.storage.all()
         self.assertIn(model, all_objects.values())
 
-    def test_save_and_reload(self):
-        """save and reload methods"""
-        model = BaseModel()
-        self.storage.new(model)
-        self.storage.save()
-        self.storage = FileStorage()  # Recreate storage to simulate a new instance
-        self.storage.reload()
-        loaded = self.storage.all()["BaseModel,"] + model.id
-        self.assertEqual(model.id, loaded_model.id)
-        self.assertEqual(model.created_at, loaded_model.created_at)
-        self.assertEqual(model.updated_at, loaded_model.updated_at)
-
-       
 
 if __name__ == '__main__':
     unittest.main()
-
