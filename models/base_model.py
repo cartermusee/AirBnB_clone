@@ -4,6 +4,7 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel:
     """Initializes a class BaseModel"""
 
@@ -43,5 +44,5 @@ class BaseModel:
         dict_obj = self.__dict__.copy()
         dict_obj["created_at"] = dict_obj["created_at"].isoformat()
         dict_obj["updated_at"] = dict_obj["updated_at"].isoformat()
-        dict_obj["__class__"] = __class__.__name__
+        dict_obj["__class__"] = self.__class__.__name__
         return dict_obj

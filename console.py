@@ -52,11 +52,10 @@ class HBNBCommand(cmd.Cmd):
             name = Review()
         elif name == "State":
             name = State()
-        elif name == "BaseModel":
+        else:
             name = BaseModel()
         storage.save()
         print(name.id)
-        storage.save()
 
     def do_show(self, nameid=None):
         """Prints the string representation of an instance based on class
