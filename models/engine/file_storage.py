@@ -41,19 +41,19 @@ class FileStorage:
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dict = json.load(f)
-            loaded_objects = {}
+            loaded_objects = FileStorage.__objects
             for k, v in obj_dict.items():
-                if 'User' in v.keys():
+                if "User" in v.keys():
                     loaded_objects[k] = User(**v)
-                elif 'Amenity' in v.keys():
+                elif "Amenity" in v.keys():
                     loaded_objects[k] = Amenity(**v)
-                elif 'City' in v.keys():
+                elif "City" in v.keys():
                     loaded_objects[k] = City(**v)
-                elif 'Place' in v.keys():
+                elif "Place" in v.keys():
                     loaded_objects[k] = Place(**v)
-                elif 'Review' in v.keys():
+                elif "Review" in v.keys():
                     loaded_objects[k] = Review(**v)
-                elif 'State' in v.keys():
+                elif "State" in v.keys():
                     loaded_objects[k] = State(**v)
                 else:
                     loaded_objects[k] = BaseModel(**v)
