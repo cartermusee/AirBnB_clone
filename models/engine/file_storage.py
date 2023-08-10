@@ -42,17 +42,17 @@ class FileStorage:
             obj_dict = json.load(f)
             loaded_objects = FileStorage.__objects
             for k, v in obj_dict.items():
-                if type(BaseModel) in v.keys():
+                if "User" in v.keys():
                     loaded_objects[k] = User(**v)
-                elif type(BaseModel) in v.keys():
+                elif "Amenity"in v.keys():
                     loaded_objects[k] = Amenity(**v)
-                elif type(BaseModel) in v.keys():
+                elif "City" in v.keys():
                     loaded_objects[k] = City(**v)
-                elif type(BaseModel) in v.keys():
+                elif "Place" in v.keys():
                     loaded_objects[k] = Place(**v)
-                elif type(BaseModel) in v.keys():
+                elif "Review" in v.keys():
                     loaded_objects[k] = Review(**v)
-                elif type(BaseModel) in v.keys():
+                elif "State" in v.keys():
                     loaded_objects[k] = State(**v)
                 else:
                     loaded_objects[k] = BaseModel(**v)
