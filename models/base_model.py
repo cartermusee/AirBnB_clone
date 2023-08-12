@@ -9,7 +9,10 @@ class BaseModel:
     """Initializes a class BaseModel"""
 
     def __init__(self, *args, **kwargs):
-        """Init method"""
+        """Init method
+        arg:
+            args:for para with no key
+            kwargs:for para with key"""
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
