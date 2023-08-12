@@ -38,11 +38,15 @@ class HBNBCommand(cmd.Cmd):
             print("(hbnb)")
 
     def do_quit(self, line):
-        """Quits if the user types in quit or crtl+D(EOF)\n"""
+        """Quits if the user types in quit or crtl+D(EOF)\ni
+        arg:
+            line:arg passed eg quit"""
         return True
 
     def do_EOF(self, line):
-        """Quits the program\n"""
+        """Quits the program\n
+        arg:
+            line:argument pass to cmd"""
         return True
 
     def emptyline(self):
@@ -52,6 +56,8 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, name):
         """Creates a new instance of BaseModel, saves it to a JSON file
         and prints the id
+        arg:
+            name:name passed to create
         """
         if name == "" or name is None:
             print("** class name missing **")
@@ -80,6 +86,8 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, nameid=None):
         """Prints the string representation of an instance based on class
         name and id
+        arg:
+            nameid:name of claa passed
         """
         if nameid == "" or nameid is None:
             print("** class name missing **")
@@ -109,7 +117,9 @@ class HBNBCommand(cmd.Cmd):
             print(instance)
 
     def do_destroy(self, nameid=None):
-        """ Deletes an instance """
+        """ Deletes an instance
+        arg:
+            nameid:name passed as para"""
         if nameid == "" or nameid is None:
             print("** class name missing **")
             return
@@ -141,7 +151,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, name):
         """ Prints string representation of all instances, an instance to
-        print can be specified by passing the name of the instance """
+        print can be specified by passing the name of the instance
+        arg:
+            name:name passed as parameter"""
         dict_all = storage.all()
         if not name:
             instances = [str(obj) for obj in dict_all.values()]
@@ -159,7 +171,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """ Updates an instance based on class name and id by adding or
-        updating an attribute and saves the changes """
+        updating an attribute and saves the changes
+        args:
+            arg:the name passed"""
         dict_all = storage.all()
         if not arg or arg == "":
             print("** class name missing **")
@@ -199,7 +213,9 @@ class HBNBCommand(cmd.Cmd):
         return
 
     def default(self, name):
-        """is used handle a case where users enter <class_name>.method"""
+        """is used handle a case where users enter <class_name>.method
+        arg:
+            name:name of class"""
         namecls = name.split(".")
         if len(namecls) == 2 and namecls[1] == "all()":
             self.do_all(namecls[0])
@@ -209,7 +225,9 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, name):
         """Update your command interpreter (console.py) to
         retrieve the number of instances of a
-        class: <class name>.count()"""
+        class: <class name>.count()
+        arg:
+            name:name of class"""
         if not name or name == "":
             print("** class name missing **")
             return
