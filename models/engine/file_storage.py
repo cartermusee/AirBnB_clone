@@ -1,7 +1,14 @@
 #!/usr/bin/python3
+"""module for file storage"""
 import json
 import os
-"""module for file storage"""
+from models.user import User
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class FileStorage:
@@ -30,14 +37,6 @@ class FileStorage:
 
     def reload(self):
         """deserializes the JSON file to __objects"""
-        from models.user import User
-        from models.base_model import BaseModel
-        from models.amenity import Amenity
-        from models.city import City
-        from models.place import Place
-        from models.review import Review
-        from models.state import State
-        """function"""
         if not os.path.isfile(FileStorage.__file_path):
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
