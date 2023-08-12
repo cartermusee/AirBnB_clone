@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ This module contains a class HBNBCommand """
 import cmd
+import shlex
+import sys
 from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -13,9 +15,27 @@ from models.state import State
 
 class HBNBCommand(cmd.Cmd):
     """This initializes a class HBNBCommand"""
+    if sys.__stdin__.isatty():
+        prompt = "(hbnb) "
+    else:
+        prompt = ""
 
-    prompt = "(hbnb) "
-    classes = ["User", "Amenity", "BaseModel", "City", "Place", "Review", "State"]
+    classes = ["User", "Amenity", "BaseModel", "City", "Place", "Review",
+               "State"]
+
+    def preloop(self):
+        """ Prints starting prompt in non-interactive mode """
+        if not sys.__stdin__.isatty():
+            print("(hbnb)")
+
+    def postloop(self):
+        """ Prints stopping prompt in non-interactive mode """
+        if not sys.__stdin__.isatty():
+            # moves the cursor up one line
+            sys.stdout.write("\033[F")
+            # flushes buffer to ensure that cursor moved
+            sys.stdout.flush()
+            print("(hbnb)")
 
     def do_quit(self, line):
         """Quits if the user types in quit or crtl+D(EOF)\n"""
@@ -133,30 +153,39 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
 
-            instances = [str(obj) for obj in dict_all.values() if obj.__class__.__name__ == namecls[0]]
+            instances = [str(obj) for obj in dict_all.values()
+                         if obj.__class__.__name__ == namecls[0]]
             print(instances)
 
     def do_update(self, arg):
         """ Updates an instance based on class name and id by adding or
         updating an attribute and saves the changes """
         dict_all = storage.all()
-        if not arg:
+        if not arg or arg == "":
             print("** class name missing **")
+            return
 
-        args = arg.split()
+        args = shlex.split(arg)
 
-        if args[0] is None or args[0] == "":
+        if args[0] == "":
             print("** class name missing **")
             return
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
-        elif args[1] is None or args[1] == "":
+            return
+        elif len(args) < 2 or args[1] == "":
             print("** instance id missing **")
             return
-        elif args[2] is None or args[2] == "":
+
+        key = f"{args[0]}.{args[1]}"
+        if key not in dict_all:
+            print("** no instance found **")
+            return
+
+        elif len(args) < 3 or args[2] == "":
             print("** attribute name missing **")
             return
-        elif args[3] is None or args[3] == "":
+        elif len(args) < 4 or args[3] == "":
             print("** value missing **")
             return
         key = f"{args[0]}.{args[1]}"
@@ -164,7 +193,6 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-        args[3] = args[3].strip('"')
         instance = dict_all[key]
         setattr(instance, args[2], args[3])
         storage.save()
