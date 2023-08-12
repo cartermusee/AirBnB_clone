@@ -216,11 +216,37 @@ class HBNBCommand(cmd.Cmd):
         """is used handle a case where users enter <class_name>.method
         arg:
             name:name of class"""
-        namecls = name.split(".")
-        if len(namecls) == 2 and namecls[1] == "all()":
-            self.do_all(namecls[0])
-        if len(namecls) == 2 and namecls[1] == "count()":
-            self.do_count(namecls[0])
+        try:
+            namecls = name.split(".")
+            if len(namecls) == 2 and namecls[1] == "all()":
+                self.do_all(namecls[0])
+            if len(namecls) == 2 and namecls[1] == "count()":
+                self.do_count(namecls[0])
+        except Exception:
+            super().default(name)
+
+        try:
+            args = name.split("(")
+        except Exception:
+            super().default(name)
+        if len(args) == 2:
+            namefunc = args[0]
+            id = args[1].strip("')\"")
+
+            if "." in namefunc and namefunc.split(".")[1] == "destroy":
+                name = namefunc.split(".")[0]
+
+                if name not in self.classes:
+                    print("** class doesn't exist **")
+                    return
+                self.do_destroy(name + " " + id)
+
+            elif "." in namefunc and namefunc.split(".")[1] == "show":
+                name = namefunc.split(".")[0]
+                if name not in self.classes:
+                    print("** class doesn't exist **")
+                    return
+                self.do_show(name + " " + id)
 
     def do_count(self, name):
         """Update your command interpreter (console.py) to
