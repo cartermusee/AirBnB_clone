@@ -198,6 +198,30 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         return
 
+    def default(self, name):
+        """is used handle a case where users enter <class_name>.method"""
+        namecls = name.split(".")
+        if len(namecls) == 2 and namecls[1] == "all()":
+            self.do_all(namecls[0])
+        if len(namecls) == 2 and namecls[1] == "count()":
+            self.do_count(namecls[0])
+
+    def do_count(self, name):
+        """Update your command interpreter (console.py) to
+        retrieve the number of instances of a
+        class: <class name>.count()"""
+        if not name or name == "":
+            print("** class name missing **")
+            return
+        if name not in self.classes:
+            print("** class doesn't exist **")
+            return
+        count = 0
+        for value in storage.all().values():
+            if value.__class__.__name__ == name:
+                count += 1
+        print(count)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
