@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-
+"""module for basemodel test"""
 import unittest
 from models.base_model import BaseModel
 from models import storage
 from models.engine.file_storage import FileStorage
 import datetime
-"""module for basemodel test"""
-
 
 
 class TestBaseModel(unittest.TestCase):
@@ -61,17 +59,19 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue('__class__' in base_instance)
 
         """to test for the datetime if they are good"""
-        base_created_at = datetime.datetime.strptime(base_instance['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
-        base_updated_at = datetime.datetime.strptime(base_instance['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        base_created_at = datetime.datetime.strptime(
+                base_instance['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        base_updated_at = datetime.datetime.strptime(
+                base_instance['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
         self.assertEqual(base_created_at, base.created_at)
         self.assertEqual(base_updated_at, base.updated_at)
 
     def test_invalid(self):
         """test inavalid"""
         with self.assertRaises(ValueError):
-            BaseModel(created_at = "wrong_date")
+            BaseModel(created_at="wrong_date")
         with self.assertRaises(ValueError):
-            BaseModel(updated_at = "wrong_date")
+            BaseModel(updated_at="wrong_date")
 
     def test_call_save_many(self):
         """calling save multiple"""
