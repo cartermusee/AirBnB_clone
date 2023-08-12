@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" This module contains a variable storage which is an instance
+""" This module contains a variablestorage which is an instance
     of FileStorage
 """
 from models.engine.file_storage import FileStorage
