@@ -249,15 +249,22 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
                     return
                 self.do_show(name + " " + id)
-        elif len(args) == 4:
-            name = args[0].split(".")[0]
-            args[1].strip(")")
-            if args[0].split(".")[1] == "update":
-                inp = re.match(r'^"(.+)"\\s"(.+)"\\s"(.+)"$', args[1])
-                id, attr, value = inp.groups()
-                self.do_update(f"{name} {id} {attr} {value}")
-            else:
-                super().default(name)
+
+        else:
+            namefunc = args[0]
+            id = args[1].strip("')\"")
+
+            if "." in namefunc and namefunc.split(".")[1] == "update":
+                name = namefunc.split(".")[0]
+                id_attr_value = args[2]
+                if id_attr_value[-1] == ',':
+                    id_attr_value = id_attr_value[:-1]
+                id_attr_value = id_attr_value.strip()
+
+                if name not in self.classes:
+                    print("** class doesn't exist **")
+                    return
+                self.do_update(f"{name} {id} {id_attr_value}")
 
     def do_count(self, name):
         """Update your command interpreter (console.py) to
