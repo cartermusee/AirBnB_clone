@@ -249,7 +249,7 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
                     return
                 self.do_show(name + " " + id)
-        else:
+        elif len(args) == 4:
             name = args[0].split(".")[0]
             args[1].strip(")")
             if args[0].split(".")[1] == "update":
