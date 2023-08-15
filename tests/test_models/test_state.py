@@ -8,6 +8,7 @@ from models.state import State
 
 class TestReview(unittest.TestCase):
     """class to test"""
+
     def test_inheritance(self):
         """test inheritance"""
         state = State()

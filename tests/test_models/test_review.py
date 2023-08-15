@@ -7,7 +7,8 @@ from models.review import Review
 
 
 class TestReview(unittest.TestCase):
-    """class to test"""
+    """tests Review """
+
     def test_inheritance(self):
         """test inheritance"""
         review = Review()
@@ -20,13 +21,13 @@ class TestReview(unittest.TestCase):
         self.assertEqual(rev.id, '342')
 
     def test_user_id(self):
-        """to test user iid"""
+        """to test user id"""
         revuserid = Review()
         revuserid.user_id = '544'
         self.assertEqual(revuserid.user_id, '544')
 
-    def test_user_id(self):
-        """to test user iid"""
+    def test_user_text(self):
+        """to test user text """
         revuserid = Review()
         revuserid.text = 'nice how are you'
         self.assertEqual(revuserid.text, 'nice how are you')

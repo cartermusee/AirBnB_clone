@@ -3,6 +3,7 @@
 import cmd
 import shlex
 import sys
+import re
 from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -36,42 +37,6 @@ class HBNBCommand(cmd.Cmd):
             # flushes buffer to ensure that cursor moved
             sys.stdout.flush()
             print("(hbnb)")
-
-    def default(self, line):
-        """ Handles function calls """
-        try:
-            args = line.split("(")
-        except Exception:
-            super().default(line)
-        if len(args) == 2:
-            namefunc = args[0]
-            id = args[1].strip("')\"")
-
-            if "." in namefunc and namefunc.split(".")[1] == "destroy":
-                name = namefunc.split(".")[0]
-
-                if name not in self.classes:
-                    print("** class doesn't exist **")
-                    return
-                self.do_destroy(name + " " + id)
-
-            elif "." in namefunc and namefunc.split(".")[1] == "show":
-                name = namefunc.split(".")[0]
-                if name not in self.classes:
-                    print("** class doesn't exist **")
-                    return
-                self.do_show(name + " " + id)
-
-        elif len(args) == 3:
-            namefunc = args[0]
-            id_attr_value = args[1].strip(')')
-            if "." in namefunc and namefunc.split(".")[1] == "update":
-                name = namefunc.split(".")[0]
-                id, attr, value = shlex.split(id_attr_value)
-                self.do_update(f"{name} {id} {attr} '{value}'")
-
-        else:
-            super().default(line)
 
     def do_quit(self, line):
         """Quits if the user types in quit or crtl+D(EOF)\ni
@@ -284,6 +249,15 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
                     return
                 self.do_show(name + " " + id)
+        else:
+            name = args[0].split(".")[0]
+            args[1].strip(")")
+            if args[0].split(".")[1] == "update":
+                inp = re.match(r'^"(.+)"\\s"(.+)"\\s"(.+)"$', args[1])
+                id, attr, value = inp.groups()
+                self.do_update(f"{name} {id} {attr} {value}")
+            else:
+                super().default(name)
 
     def do_count(self, name):
         """Update your command interpreter (console.py) to

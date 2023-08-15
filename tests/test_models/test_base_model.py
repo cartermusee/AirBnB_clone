@@ -12,13 +12,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_instances(self):
         """test for instances"""
-
         base = BaseModel
         self.assertFalse(issubclass(type(base), BaseModel))
 
     def test_3_id(self):
         """unique user id test."""
-
         ld = [BaseModel().id for _ in range(1000)]
         self.assertEqual(len(set(ld)), len(ld))
 

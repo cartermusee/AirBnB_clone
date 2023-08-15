@@ -8,6 +8,7 @@ from models.user import User
 
 class TestReview(unittest.TestCase):
     """class to test"""
+
     def test_inheritance(self):
         """test inheritance"""
         user = User()
@@ -19,19 +20,19 @@ class TestReview(unittest.TestCase):
         user.email = "mike@gmail.com"
         self.assertEqual(user.email, 'mike@gmail.com')
 
-    def test_pass(self):
+    def test_password(self):
         """to test user pass"""
         user = User()
         user.password = 'fd544'
         self.assertEqual(user.password, 'fd544')
 
-    def test_user_id(self):
+    def test_user_firstname(self):
         """to test fname"""
         user = User()
         user.first_name = 'musee'
         self.assertEqual(user.first_name, 'musee')
 
-    def test_user_id(self):
+    def test_user_lastname(self):
         """to test fname"""
         user = User()
         user.last_name = 'carter'

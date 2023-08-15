@@ -7,6 +7,7 @@ from models.city import City
 
 class Testcity(unittest.TestCase):
     """test"""
+
     def test_basemodel_inheritance(self):
         """test for basemodel inheritance"""
         city = City()
