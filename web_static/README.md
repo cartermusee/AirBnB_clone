@@ -1,1 +1,1 @@
-html and css
+html and css in wweb satic
