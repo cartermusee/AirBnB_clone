@@ -4,6 +4,7 @@ import cmd
 import shlex
 import sys
 import json
+import re
 from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -76,13 +77,13 @@ class HBNBCommand(cmd.Cmd):
             super().default(line)
 
     def do_quit(self, line):
-        """Quits if the user types in quit or crtl+D(EOF)\ni
+        """Quits if the user types in quit or crtl+D(EOF)
         arg:
             line:arg passed eg quit"""
         return True
 
     def do_EOF(self, line):
-        """Quits the program\n
+        """Quits the program
         arg:
             line:argument pass to cmd"""
         return True
@@ -286,6 +287,22 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
                     return
                 self.do_show(name + " " + id)
+
+        else:
+            namefunc = args[0]
+            id = args[1].strip("')\"")
+
+            if "." in namefunc and namefunc.split(".")[1] == "update":
+                name = namefunc.split(".")[0]
+                id_attr_value = args[2]
+                if id_attr_value[-1] == ',':
+                    id_attr_value = id_attr_value[:-1]
+                id_attr_value = id_attr_value.strip()
+
+                if name not in self.classes:
+                    print("** class doesn't exist **")
+                    return
+                self.do_update(f"{name} {id} {id_attr_value}")
 
     def do_count(self, name):
         """Update your command interpreter (console.py) to

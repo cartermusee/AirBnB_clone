@@ -1,20 +1,22 @@
 #!/usr/bin/python3
 import unittest
+from models.base_model import BaseModel
 from models.amenity import Amenity
 """class for amenity test"""
 
 
 class TestAmenity(unittest.TestCase):
     """test for amenity"""
+
     def test_inheritance(self):
         """test inheritance"""
         amenity = Amenity()
-        self.assertIsInstance(amenity, Amenity)
+        self.assertIsInstance(amenity, BaseModel)
 
     def test_instances(self):
         """test for instances"""
-        amenity = Amenity()
-        self.assertIsInstance(amenity, Amenity)
+        new_amenity = Amenity()
+        self.assertIsInstance(new_amenity, Amenity)
 
     def test_name(self):
         """test if name is good"""
