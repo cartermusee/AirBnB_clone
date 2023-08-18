@@ -3,6 +3,7 @@
 import cmd
 import shlex
 import sys
+import json
 from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -68,8 +69,9 @@ class HBNBCommand(cmd.Cmd):
             if "." in namefunc and namefunc.split(".")[1] == "update":
                 name = namefunc.split(".")[0]
                 id, attr, value = shlex.split(id_attr_value)
+                if value.startswith('{') and value.endswith('}'):
+                    value = json.loads(value)
                 self.do_update(f"{name} {id} {attr} '{value}'")
-
         else:
             super().default(line)
 
