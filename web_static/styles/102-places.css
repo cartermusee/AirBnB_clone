@@ -1,0 +1,60 @@
+@media screen and (max-width:600px) {
+    .container{
+        max-width: 500px;
+        margin: 30px auto;
+    }
+    .filters{
+        height: 40px;
+
+    }
+    section.filters button{
+        font-size: 9px;
+        background-color: #FF5A5F;
+        color: #FFFFFF;
+        height: 24px;
+        width: 20%;
+        border-radius: 4px;
+        margin-right: 10px;
+        margin-left: auto;
+        
+    }
+    .places article{
+        max-width: 200px;
+    }
+    .places article h2{
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+    .price_by_night{
+        font-size: 15px;
+        height: 30px;
+        min-width: 30px;
+
+    }
+    .places h1{
+        font-size: 15px;
+    }
+    .filters{
+        height: 70px;
+    }
+    .filters .locations h3{
+        font-size: 15px;
+        margin-left: -15px;
+    }
+    .filters .locations h4{
+        font-size: 10px;
+        margin-left: -15px;
+    }
+    .locations h2{
+        font-size: 10px;
+    }
+    .filters .amenities h3{
+        font-size: 15px;
+        margin-left: -25px;
+    }
+    .filters .amenities h4{
+        font-size: 10px;
+        margin-left: -25px;
+    }
+    
+}

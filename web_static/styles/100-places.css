@@ -1,0 +1,61 @@
+.places article .amenities{
+    margin-top: 40px;
+    padding: 0;
+}
+.places .amenities h2{
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD ;
+    text-align: left;
+}
+article .amenities ul{
+    text-align: left;
+}
+article .amenities ul li{
+    list-style: none;
+    margin-left: -40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.tv_icon,.wi_icon,.pet_icon{
+    height: 20px;
+    width: 20px;
+    background: url(images/icon_tv.png) no-repeat;
+    background-size: cover;
+    margin-right: 15px;
+}
+.wi_icon{
+    height: 20px;
+    width: 20px;
+    background: url(images/icon_wifi.png) no-repeat;
+    background-size: cover;
+    margin-right: 15px;
+}
+.pet_icon{
+    height: 20px;
+    width: 20px;
+    background: url(images/icon_pets.png) no-repeat;
+    background-size: cover;
+    margin-right: 15px;
+}
+article .reviews{
+    margin-top: 40px;
+    text-align: left;
+}
+.places .reviews h2{
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+article .reviews ul{
+    text-align: left;
+}
+article .reviews ul li{
+    list-style: none;
+    margin-left: -40px;
+}
+article .reviews ul li h3{
+    font-size: 14px;
+}
+article .reviews ul li p{
+    font-size: 12px;
+}

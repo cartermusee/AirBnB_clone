@@ -1,0 +1,40 @@
+.popover{
+    list-style: none;
+    background-color:  #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: -18px;
+    padding: 10px 30px 40px 0;
+    position: relative;
+    left: -30px;
+    border-top: 0;
+}
+.locations .popover{
+    display: none;
+}
+.popover li h2{
+    padding: 30px 0 0 15px;
+    font-size: 16px;
+    margin: 0;
+}
+.popover li ul{
+    padding: 0 0 0 15px;
+}
+.popover li ul li{
+    list-style: none;
+    padding: 0 0 0 10px;
+}
+.amenities .popover{
+    margin-left: 0px;
+    padding: 30px;
+    display: none;
+}
+
+.filters .locations:hover .popover{
+    display: block;
+}
+
+.filters .amenities:hover .popover{
+    display: block;
+}
